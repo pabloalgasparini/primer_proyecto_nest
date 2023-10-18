@@ -9,8 +9,8 @@ export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
   @Post()
-  create(@Body() {name}: CreateProductDto ) {
-    return this.productService.create(name);
+  create(@Body() {name, stock, descripcion}: CreateProductDto ) {
+    return this.productService.create(name, stock, descripcion);
   }
 
   @Get()
@@ -24,7 +24,7 @@ export class ProductController {
   }
 
   @Patch(':id')
-  actualizarProducto(@Param('id', ParseUUIDPipe) id:string, @Body() { name }: UpdateProductDto) { 
-    return this.productService.actualizarProducto(id,{name})
+  actualizarProducto(@Param('id', ParseUUIDPipe) id:string, @Body() { name, stock, descripcion }: UpdateProductDto) { 
+    return this.productService.actualizarProducto(id,{name, stock, descripcion})
   }
 }

@@ -1,7 +1,6 @@
-import { Injectable, Patch, Delete, Post, Param, Body, ParseIntPipe } from '@nestjs/common';
-// import { CreateProductDto } from './dto/create-product.dto';
-// import { UpdateProductDto } from './dto/update-product.dto';
+import { Injectable, Param, Body } from '@nestjs/common';
 import { v4 as uuidv4 } from 'uuid'
+import { UpdateProductDto } from './dto/update-product.dto';
 
 
 @Injectable()
@@ -9,12 +8,16 @@ export class ProductService {
   private products: {
     id: string
     name: string
+    stock: number
+    descripcion: string
   }[]=[];
 
-  create(name: string) {
+  create(name: string, stock: number, descripcion: string) {
     this.products.push({
       id: uuidv4(),
-      name
+      name,
+      stock,
+      descripcion
     });
   }
 
@@ -28,10 +31,12 @@ export class ProductService {
   }
 
   
-  actualizarProducto(@Param('id') id: string, @Body() { name }: { name: string }): any {
+  actualizarProducto(@Param('id') id: string, @Body() { name, stock, descripcion }: UpdateProductDto) {
    return this.products = this.products.map((product) => {
       if (product.id === id) {
         product.name = name
+        product.stock = stock
+        product.descripcion = descripcion
       }
       return product
     })
