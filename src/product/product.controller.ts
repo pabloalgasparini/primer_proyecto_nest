@@ -24,7 +24,7 @@ export class ProductController {
   }
 
   @Patch(':id')
-  actualizarProducto(@Param('id', ParseUUIDPipe) id:string, @Body() { name, stock, descripcion }: UpdateProductDto) { 
-    return this.productService.actualizarProducto(id,{name, stock, descripcion})
+  actualizarProducto(@Param('id', ParseUUIDPipe) id:string, @Body() productDto: UpdateProductDto) { 
+    return this.productService.actualizarProducto(id, productDto)
   }
 }

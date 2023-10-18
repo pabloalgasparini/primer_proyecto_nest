@@ -31,12 +31,10 @@ export class ProductService {
   }
 
   
-  actualizarProducto(@Param('id') id: string, @Body() { name, stock, descripcion }: UpdateProductDto) {
+  actualizarProducto(@Param('id') id: string, @Body() productDto: UpdateProductDto) {
    return this.products = this.products.map((product) => {
       if (product.id === id) {
-        product.name = name
-        product.stock = stock
-        product.descripcion = descripcion
+        product = Object.assign(product, productDto)
       }
       return product
     })
